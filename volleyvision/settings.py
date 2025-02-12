@@ -15,6 +15,9 @@ import django_heroku
 import dj_database_url
 from django.http import FileResponse, Http404
 from django.conf import settings
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -82,12 +85,16 @@ WSGI_APPLICATION = 'volleyvision.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
 }
 
+# Disable SSL requirement for local development and Docker environment
+if 'DATABASE_URL' in os.environ:
+    DATABASES['default']['OPTIONS'] = {
+        'sslmode': 'disable',
+    }
+
+logging.debug(DATABASES)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
