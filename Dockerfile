@@ -22,18 +22,13 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
 # Copy the current directory contents into the container at /app
 COPY . /app
 
-# Copy the .env file
-COPY .env .
-
-# Make entrypoint.sh executable
-RUN chmod +x entrypoint.sh
-
 # Set environment variables
 ENV DJANGO_SETTINGS_MODULE=volleyvision.settings
 ENV PYTHONUNBUFFERED=1
+ENV ROBOFLOW_API_KEY=ROBOFLOW_API_KEY
 
 # Expose port 8000 for the Django app
 EXPOSE 8000
 
-# Run entrypoint.sh
-ENTRYPOINT ["/app/entrypoint.sh"]
+# Command to run the Django development server
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
