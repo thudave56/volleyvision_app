@@ -66,8 +66,9 @@ elif color == 'navy':
 # https://universe.roboflow.com/volleyvision/volleyball-tracking/model/13
 ROBOFLOW_API_KEY = os.getenv("ROBOFLOW_API_KEY")
 rf = Roboflow(api_key=ROBOFLOW_API_KEY)
-project = rf.workspace().project("volleyball_v2")
-model = project.version(18).model
+workspace = rf.workspace()
+project = workspace.project("volleyball_v2")
+model = project.version(2).model
 ###################
 
 ### Create Output Directory ###

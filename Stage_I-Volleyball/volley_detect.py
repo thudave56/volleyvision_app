@@ -135,9 +135,10 @@ video_out = cv2.VideoWriter(fname, fourcc, fps, dims)
 if model_name == 'roboflow':
     #  Public API key, if doesn't work, get from -->
     #  https://universe.roboflow.com/volleyvision/volleyball-tracking/model/13
-    rf = Roboflow(api_key="WQp0964J9jw76po6tElU")
-    project = rf.workspace().project("volleyball-tracking")
-    model = project.version(18).model
+    ROBOFLOW_API_KEY = os.getenv("ROBOFLOW_API_KEY")
+    rf = Roboflow(api_key=ROBOFLOW_API_KEY)
+    project = rf.workspace().project("volleyball_v2")
+    model = project.version(2).model
 elif model_name == 'yolov7':
     model = custom(path_or_model='yV7-tiny/weights/best.pt')
     model.conf = conf
