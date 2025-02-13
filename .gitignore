@@ -3,3 +3,4 @@ media
 *.py[cod]
 *.log
 *.pot
+.env
