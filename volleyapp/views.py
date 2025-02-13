@@ -55,14 +55,14 @@ def upload(request):
 
                 if option == 'volleyball':
                     if file_type == 'video':
-                        command = ["python", "Stage I - Volleyball/volley_detect.py", "--input_video_path", input_path, "--output_video_path", output_path]
+                        command = ["python", "Stage_I-Volleyball/volley_detect.py", "--input_video_path", input_path, "--output_video_path", output_path]
                     elif file_type == 'image':                    
-                        command = ["python", "Stage I - Volleyball/roboflow_detect.py", "--input_path", input_path, "--output_path", output_path]
+                        command = ["python", "Stage_I-Volleyball/roboflow_detect.py", "--input_path", input_path, "--output_path", output_path]
                     subprocess.run(command)
                     input_path = output_path
 
                 elif option == 'action':
-                    command = ["yolo", "predict", "model=Stage II - Players & Actions/actions/yV8_medium/weights/best.pt", f"source={input_path}", "show_conf=False", "show_labels=True", "conf=0.5", 'project=media', 'name=Y_action']
+                    command = ["yolo", "predict", "model=Stage_II-Players & Actions/actions/yV8_medium/weights/best.pt", f"source={input_path}", "show_conf=False", "show_labels=True", "conf=0.5", 'project=media', 'name=Y_action']
                     subprocess.run(command)
 
                     input_name = os.path.split(input_path)[1]
@@ -70,7 +70,7 @@ def upload(request):
                     input_path = output_path
 
                 elif option == 'player':
-                    command = ["yolo", "predict", "model=Stage II - Players & Actions/players/yV8_medium/weights/best.pt", f"source={input_path}", "show_conf=False", "show_labels=False", "conf=0.7", 'project=media', 'name=Y_player', 'max_det=12']
+                    command = ["yolo", "predict", "model=Stage_II-Players & Actions/players/yV8_medium/weights/best.pt", f"source={input_path}", "show_conf=False", "show_labels=False", "conf=0.7", 'project=media', 'name=Y_player', 'max_det=12']
                     subprocess.run(command)
 
                     input_name = os.path.split(input_path)[1]
@@ -78,7 +78,7 @@ def upload(request):
                     input_path = output_path
 
                 elif option == 'court':
-                    command = ["python", "Stage III - Court Detection/court_detect.py",  "--input_path", input_path, "--output_path", output_path]
+                    command = ["python", "Stage_III-Court Detection/court_detect.py",  "--input_path", input_path, "--output_path", output_path]
                     subprocess.run(command)
                     input_path = output_path  # Update the input path for the next process
 
