@@ -5,6 +5,10 @@ from my_utils import *
 from tqdm import tqdm
 from datetime import datetime
 from roboflow import Roboflow
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 ### Parse Arguments ###
 parser = argparse.ArgumentParser()
@@ -60,8 +64,9 @@ elif color == 'navy':
 ### Model Selection ###
 # Public API key, if it doesn't work, get it from -->
 # https://universe.roboflow.com/volleyvision/volleyball-tracking/model/13
-rf = Roboflow(api_key="WQp0964J9jw76po6tElU")
-project = rf.workspace().project("volleyball-tracking")
+ROBOFLOW_API_KEY = os.getenv("ROBOFLOW_API_KEY")
+rf = Roboflow(api_key=ROBOFLOW_API_KEY)
+project = rf.workspace().project("volleyball_v2")
 model = project.version(18).model
 ###################
 
