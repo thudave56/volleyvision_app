@@ -18,7 +18,7 @@ parser.add_argument("--input_path",
                     help="path to the input video or image")
 parser.add_argument("--output_path",
                     type=str,
-                    default="Output/output.jpg",
+                    default="Output/output.mp4",
                     help="path to save the output file")
 parser.add_argument("--marker",
                     type=str,
@@ -107,7 +107,8 @@ def process_video(video_path):
     frame_height = int(video_in.get(cv2.CAP_PROP_FRAME_HEIGHT))
     fps = video_in.get(cv2.CAP_PROP_FPS)
 
-    video_out = cv2.VideoWriter(output_path, cv2.VideoWriter_fourcc(*'mp4v'), fps, (frame_width, frame_height))
+    fourcc = cv2.VideoWriter_fourcc(*'avc1')')
+    video_out = cv2.VideoWriter(output_path, fourcc, fps, (frame_width, frame_height))
 
     while video_in.isOpened():
         ret, frame = video_in.read()
